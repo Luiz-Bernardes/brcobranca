@@ -16,7 +16,9 @@ module Brcobranca
       # Validações do Rails 3
       include ActiveModel::Validations
 
+      attr_accessor :nosso_numero_new
       attr_accessor :convenio_display
+
       # <b>REQUERIDO</b>: Número do convênio/contrato do cliente junto ao banco emissor
       attr_accessor :convenio
       # <b>REQUERIDO</b>: Tipo de moeda utilizada (Real(R$) e igual a 9)

@@ -60,7 +60,7 @@ module Brcobranca
       # Nosso número, 17 dígitos
       # @return [String]
       def nosso_numero_boleto
-        "#{nosso_numero}-#{nosso_numero_dv}"
+        "#{nosso_numero_new}-#{nosso_numero_dv}"
       end
 
       # Nosso número, 17 dígitos
@@ -110,11 +110,11 @@ module Brcobranca
       def codigo_barras_segunda_parte
         campo_livre = "#{convenio}" \
         "#{convenio_dv}" \
-        "#{nosso_numero[2..4]}" \
-        "#{nosso_numero[0..0]}" \
-        "#{nosso_numero[5..7]}" \
-        "#{nosso_numero[1..1]}" \
-        "#{nosso_numero[8..16]}"
+        "#{nosso_numero_new[2..4]}" \
+        "#{nosso_numero_new[0..0]}" \
+        "#{nosso_numero_new[5..7]}" \
+        "#{nosso_numero_new[1..1]}" \
+        "#{nosso_numero_new[8..16]}"
 
         campo_livre.to_s +
           campo_livre.modulo11(
