@@ -17,7 +17,20 @@ module Brcobranca
       include ActiveModel::Validations
 
       attr_accessor :nosso_numero_new
+      attr_accessor :nosso_numero_new_dv
       attr_accessor :convenio_display
+      attr_accessor :convenio_dv_display
+
+      attr_accessor :a
+      attr_accessor :b
+      attr_accessor :c
+      attr_accessor :x
+      attr_accessor :y
+      attr_accessor :z
+      attr_accessor :w
+      attr_accessor :v
+      attr_accessor :r
+      attr_accessor :dv
 
       # <b>REQUERIDO</b>: Número do convênio/contrato do cliente junto ao banco emissor
       attr_accessor :convenio
@@ -99,7 +112,7 @@ module Brcobranca
       def initialize(campos = {})
         padrao = {
           moeda: '9', data_documento: Date.current, data_vencimento: Date.current, quantidade: 1,
-          especie_documento: 'DM', especie: 'R$', aceite: 'S', valor: 0.0,
+          especie_documento: 'DM', especie: 'R$', aceite: 'NAO', valor: 0.0,
           local_pagamento: 'QUALQUER BANCO ATÉ O VENCIMENTO'
         }
 
@@ -203,7 +216,9 @@ module Brcobranca
             mapeamento: { 0 => 1, 10 => 1, 11 => 1 }
           ) { |t| 11 - (t % 11) }
 
-          codigo = "#{Regexp.last_match[1]}#{codigo_dv}#{Regexp.last_match[2]}"
+          # Regexp.last_match[2][0..13]
+          # codigo = "#{Regexp.last_match[1]}#{codigo_dv}#{Regexp.last_match[2]}"
+          codigo = "#{Regexp.last_match[1]}#{dv}#{Regexp.last_match[2][0..13]}#{a}#{c}#{b}#{x}#{y}#{z}#{w}#{v}#{r}"
           codigo
         else
           raise Brcobranca::BoletoInvalido, self

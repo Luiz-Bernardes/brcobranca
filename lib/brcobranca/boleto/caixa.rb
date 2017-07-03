@@ -60,7 +60,7 @@ module Brcobranca
       # Nosso número, 17 dígitos
       # @return [String]
       def nosso_numero_boleto
-        "#{nosso_numero_new}-#{nosso_numero_dv}"
+        "#{nosso_numero_new}-#{nosso_numero_new_dv}"
       end
 
       # Nosso número, 17 dígitos
@@ -85,7 +85,7 @@ module Brcobranca
       # @example
       #  boleto.agencia_conta_boleto #=> "1565/100000-4"
       def agencia_conta_boleto
-        "#{agencia}/#{convenio_display}-#{convenio_dv}"
+        "#{agencia}/#{convenio_display}-#{convenio_dv_display}"
       end
 
       # Dígito verificador do convênio ou código do cedente
@@ -110,11 +110,11 @@ module Brcobranca
       def codigo_barras_segunda_parte
         campo_livre = "#{convenio}" \
         "#{convenio_dv}" \
-        "#{nosso_numero_new[2..4]}" \
-        "#{nosso_numero_new[0..0]}" \
-        "#{nosso_numero_new[5..7]}" \
-        "#{nosso_numero_new[1..1]}" \
-        "#{nosso_numero_new[8..16]}"
+        "#{nosso_numero[2..4]}" \
+        "#{nosso_numero[0..0]}" \
+        "#{nosso_numero[5..7]}" \
+        "#{nosso_numero[1..1]}" \
+        "#{nosso_numero[8..16]}"
 
         campo_livre.to_s +
           campo_livre.modulo11(
