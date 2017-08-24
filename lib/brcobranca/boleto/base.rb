@@ -209,16 +209,18 @@ module Brcobranca
         raise Brcobranca::BoletoInvalido, self unless valid?
         codigo = codigo_barras_primeira_parte # 18 digitos
         codigo << codigo_barras_segunda_parte # 25 digitos
+
         if codigo =~ /^(\d{4})(\d{39})$/
+
+          codigo = "#{Regexp.last_match[1]}#{Regexp.last_match[2][0..13]}#{a}#{c}#{b}#{x}#{y}#{z}#{w}#{v}#{r}"
 
           codigo_dv = codigo.modulo11(
             multiplicador: (2..9).to_a,
             mapeamento: { 0 => 1, 10 => 1, 11 => 1 }
           ) { |t| 11 - (t % 11) }
 
-          # Regexp.last_match[2][0..13]
-          # codigo = "#{Regexp.last_match[1]}#{codigo_dv}#{Regexp.last_match[2]}"
-          codigo = "#{Regexp.last_match[1]}#{dv}#{Regexp.last_match[2][0..13]}#{a}#{c}#{b}#{x}#{y}#{z}#{w}#{v}#{r}"
+
+          codigo = "#{Regexp.last_match[1]}#{codigo_dv}#{Regexp.last_match[2][0..13]}#{a}#{c}#{b}#{x}#{y}#{z}#{w}#{v}#{r}"
           codigo
         else
           raise Brcobranca::BoletoInvalido, self
